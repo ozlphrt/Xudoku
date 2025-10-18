@@ -885,11 +885,11 @@
                 return;
             }
             
-            // Don't show if already shown
-            if (installPromptShown) {
-                console.log('❌ Not showing prompt - already shown');
-                return;
-            }
+            // Show prompt even if already shown (for testing)
+            // if (installPromptShown) {
+            //     console.log('❌ Not showing prompt - already shown');
+            //     return;
+            // }
             
             const prompt = document.getElementById('installPrompt');
             if (prompt) {
@@ -938,27 +938,37 @@
             console.log('🔍 Window width:', window.innerWidth);
             console.log('🔍 Is mobile:', window.innerWidth <= 768);
             console.log('🔍 Is app installed:', isAppInstalled());
+            console.log('🔍 User agent:', navigator.userAgent);
+            console.log('🔍 Display mode:', window.matchMedia('(display-mode: standalone)').matches);
+            console.log('🔍 Navigator standalone:', window.navigator.standalone);
             
+            // Always show prompt on mobile if not installed, regardless of previous dismissal
             if (window.innerWidth <= 768 && !isAppInstalled()) {
-                // Check if user has seen the prompt before
-                const hasSeenPrompt = localStorage.getItem('xudoku-install-prompt-seen');
-                console.log('🔍 Has seen prompt before:', hasSeenPrompt);
-                
-                if (!hasSeenPrompt) {
-                    console.log('✅ Will show install prompt after delay');
-                    setTimeout(() => {
-                        showInstallPrompt();
-                    }, 3000);
-                } else {
-                    console.log('❌ Not showing prompt - user has seen it before');
-                }
+                console.log('✅ Will show install prompt after delay');
+                setTimeout(() => {
+                    showInstallPrompt();
+                }, 2000);
+            } else if (window.innerWidth > 768 && !isAppInstalled()) {
+                // Show on desktop too for testing
+                console.log('✅ Will show install prompt on desktop after delay');
+                setTimeout(() => {
+                    showInstallPrompt();
+                }, 3000);
             } else {
-                console.log('❌ Not showing prompt - not mobile or already installed');
+                console.log('❌ Not showing prompt - already installed');
             }
         }
 
         // Initialize install prompt check
         setTimeout(checkAndShowInstallPrompt, 1000);
+        
+        // Fallback: Show install prompt if beforeinstallprompt doesn't fire
+        setTimeout(() => {
+            if (!deferredPrompt && !isAppInstalled()) {
+                console.log('🔄 Fallback: Showing install prompt without beforeinstallprompt event');
+                showInstallPrompt();
+            }
+        }, 5000);
         
         // Add manual trigger for testing (remove in production)
         window.testInstallPrompt = function() {
