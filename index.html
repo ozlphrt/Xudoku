@@ -597,20 +597,24 @@
         ======================================== */
         
         .install-prompt {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.95);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: fixed !important;
+            bottom: 20px !important;
+            left: 20px !important;
+            right: 20px !important;
+            background: rgba(255, 0, 0, 0.9) !important; /* RED for visibility */
+            border: 3px solid #ffffff !important;
             border-radius: 16px;
             padding: 20px;
-            z-index: 10000;
+            z-index: 99999 !important;
             backdrop-filter: blur(10px);
-            /* TEST: Make visible by default */
-            transform: translateY(0);
-            opacity: 1;
+            /* FORCE VISIBLE */
+            transform: translateY(0) !important;
+            opacity: 1 !important;
+            display: block !important;
+            visibility: visible !important;
             transition: all 0.3s ease;
+            /* Add box shadow for extra visibility */
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
         }
 
         .install-prompt.show {
@@ -969,11 +973,38 @@
             const prompt = document.getElementById('installPrompt');
             if (prompt) {
                 prompt.classList.add('show');
+                prompt.style.display = 'block';
+                prompt.style.visibility = 'visible';
+                prompt.style.opacity = '1';
+                prompt.style.transform = 'translateY(0)';
                 console.log('✅ FORCE TEST: Install prompt should be visible now');
+                console.log('✅ FORCE TEST: Prompt element:', prompt);
+                console.log('✅ FORCE TEST: Prompt styles:', prompt.style.cssText);
             } else {
                 console.log('❌ FORCE TEST: Install prompt element not found');
             }
         }, 2000);
+        
+        // TEST: Create a simple visible test element
+        setTimeout(() => {
+            const testDiv = document.createElement('div');
+            testDiv.style.cssText = `
+                position: fixed;
+                top: 50px;
+                left: 20px;
+                right: 20px;
+                background: #ff0000;
+                color: white;
+                padding: 20px;
+                z-index: 99999;
+                font-size: 18px;
+                text-align: center;
+                border: 3px solid white;
+            `;
+            testDiv.innerHTML = '🧪 TEST ELEMENT - If you see this, DOM is working!';
+            document.body.appendChild(testDiv);
+            console.log('🧪 TEST ELEMENT CREATED');
+        }, 3000);
         
         // Fallback: Show install prompt if beforeinstallprompt doesn't fire
         setTimeout(() => {
