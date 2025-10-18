@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="32" height="32" rx="6" fill="#1a1a2e"/>
+  
+  <!-- Sudoku Grid -->
+  <g fill="none" stroke="url(#grad)" stroke-width="0.5">
+    <!-- Vertical lines -->
+    <line x1="4" y1="4" x2="4" y2="28"/>
+    <line x1="8" y1="4" x2="8" y2="28"/>
+    <line x1="12" y1="4" x2="12" y2="28"/>
+    <line x1="16" y1="4" x2="16" y2="28"/>
+    <line x1="20" y1="4" x2="20" y2="28"/>
+    <line x1="24" y1="4" x2="24" y2="28"/>
+    <line x1="28" y1="4" x2="28" y2="28"/>
+    
+    <!-- Horizontal lines -->
+    <line x1="4" y1="4" x2="28" y2="4"/>
+    <line x1="4" y1="8" x2="28" y2="8"/>
+    <line x1="4" y1="12" x2="28" y2="12"/>
+    <line x1="4" y1="16" x2="28" y2="16"/>
+    <line x1="4" y1="20" x2="28" y2="20"/>
+    <line x1="4" y1="24" x2="28" y2="24"/>
+    <line x1="4" y1="28" x2="28" y2="28"/>
+    
+    <!-- Thick lines for 3x3 blocks -->
+    <line x1="12" y1="4" x2="12" y2="28" stroke-width="1.5"/>
+    <line x1="20" y1="4" x2="20" y2="28" stroke-width="1.5"/>
+    <line x1="4" y1="12" x2="28" y2="12" stroke-width="1.5"/>
+    <line x1="4" y1="20" x2="28" y2="20" stroke-width="1.5"/>
+  </g>
+  
+  <!-- Sample numbers -->
+  <text x="6" y="10" font-family="monospace" font-size="6" fill="url(#grad)" font-weight="bold">1</text>
+  <text x="10" y="10" font-family="monospace" font-size="6" fill="url(#grad)" font-weight="bold">2</text>
+  <text x="14" y="10" font-family="monospace" font-size="6" fill="url(#grad)" font-weight="bold">3</text>
+  <text x="18" y="10" font-family="monospace" font-size="6" fill="url(#grad)" font-weight="bold">4</text>
+  <text x="22" y="10" font-family="monospace" font-size="6" fill="url(#grad)" font-weight="bold">5</text>
+  <text x="26" y="10" font-family="monospace" font-size="6" fill="url(#grad)" font-weight="bold">6</text>
+  
+  <text x="6" y="18" font-family="monospace" font-size="6" fill="url(#grad)" font-weight="bold">7</text>
+  <text x="10" y="18" font-family="monospace" font-size="6" fill="url(#grad)" font-weight="bold">8</text>
+  <text x="14" y="18" font-family="monospace" font-size="6" fill="url(#grad)" font-weight="bold">9</text>
+  <text x="18" y="18" font-family="monospace" font-size="6" fill="url(#grad)" font-weight="bold">1</text>
+  <text x="22" y="18" font-family="monospace" font-size="6" fill="url(#grad)" font-weight="bold">2</text>
+  <text x="26" y="18" font-family="monospace" font-size="6" fill="url(#grad)" font-weight="bold">3</text>
+  
+  <text x="6" y="26" font-family="monospace" font-size="6" fill="url(#grad)" font-weight="bold">4</text>
+  <text x="10" y="26" font-family="monospace" font-size="6" fill="url(#grad)" font-weight="bold">5</text>
+  <text x="14" y="26" font-family="monospace" font-size="6" fill="url(#grad)" font-weight="bold">6</text>
+  <text x="18" y="26" font-family="monospace" font-size="6" fill="url(#grad)" font-weight="bold">7</text>
+  <text x="22" y="26" font-family="monospace" font-size="6" fill="url(#grad)" font-weight="bold">8</text>
+  <text x="26" y="26" font-family="monospace" font-size="6" fill="url(#grad)" font-weight="bold">9</text>
+</svg>

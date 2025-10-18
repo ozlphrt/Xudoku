@@ -1,0 +1,117 @@
+{
+  "name": "Xudoku - Premium Sudoku PWA",
+  "short_name": "Xudoku",
+  "description": "Premium Sudoku game with PWA support, multiple themes, and advanced features",
+  "version": "1.0.0",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "scope": "/",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["games", "puzzle", "entertainment"],
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "New Game",
+      "short_name": "New Game",
+      "description": "Start a new Sudoku game",
+      "url": "/?action=new",
+      "icons": [
+        {
+          "src": "favicon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Easy Mode",
+      "short_name": "Easy",
+      "description": "Start an easy Sudoku puzzle",
+      "url": "/?difficulty=easy",
+      "icons": [
+        {
+          "src": "favicon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Medium Mode",
+      "short_name": "Medium",
+      "description": "Start a medium Sudoku puzzle",
+      "url": "/?difficulty=medium",
+      "icons": [
+        {
+          "src": "favicon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Hard Mode",
+      "short_name": "Hard",
+      "description": "Start a hard Sudoku puzzle",
+      "url": "/?difficulty=hard",
+      "icons": [
+        {
+          "src": "favicon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/desktop-1.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Xudoku desktop view showing the main game interface"
+    },
+    {
+      "src": "screenshots/mobile-1.png",
+      "sizes": "375x812",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Xudoku mobile view with responsive design"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "handle_links": "preferred",
+  "capture_links": "existing-client-navigate",
+  "file_handlers": [
+    {
+      "action": "/",
+      "accept": {
+        "application/json": [".sudoku"]
+      }
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+xudoku",
+      "url": "/?puzzle=%s"
+    }
+  ]
+}

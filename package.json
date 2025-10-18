@@ -1,0 +1,44 @@
+{
+  "name": "xudoku-pwa",
+  "version": "1.0.0",
+  "description": "Premium Sudoku PWA with advanced features and offline support",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "serve": "python -m http.server 8000",
+    "dev": "python -m http.server 8000",
+    "build": "echo 'No build process needed - ready to deploy!'",
+    "test": "echo 'Run the app and test manually'",
+    "lint": "echo 'Linting not configured - using vanilla JS'"
+  },
+  "keywords": [
+    "sudoku",
+    "pwa",
+    "progressive-web-app",
+    "game",
+    "puzzle",
+    "offline",
+    "mobile",
+    "desktop"
+  ],
+  "author": "Xudoku Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/xudoku-pwa.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/xudoku-pwa/issues"
+  },
+  "homepage": "https://your-username.github.io/xudoku-pwa/",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "devDependencies": {},
+  "dependencies": {}
+}

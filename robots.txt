@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: /sitemap.xml
+
+# PWA specific
+Allow: /manifest.json
+Allow: /sw.js
+Allow: /icons/
