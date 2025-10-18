@@ -756,7 +756,7 @@
             <div class="install-prompt-icon">📱</div>
             <h3 class="install-prompt-title">Install Xudoku</h3>
         </div>
-        <p class="install-prompt-message">
+        <p class="install-prompt-message" id="installPromptMessage">
             Add Xudoku to your home screen for a better gaming experience with full screen mode and offline play.
         </p>
         <div class="install-prompt-actions">
@@ -881,13 +881,24 @@
             const urlParams = new URLSearchParams(window.location.search);
             const isPWALaunch = urlParams.has('source') && urlParams.get('source') === 'pwa';
             
+            // Check for Android PWA indicators
+            const isAndroid = /Android/i.test(navigator.userAgent);
+            const isAndroidPWA = isAndroid && (isStandalone || isFromHomeScreen);
+            
+            // Check for iOS PWA indicators  
+            const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+            const isIOSPWA = isIOS && (isIOSStandalone || isFromHomeScreen);
+            
             const isInstalled = isStandalone || isIOSStandalone || isFromHomeScreen || isPWALaunch;
             
             console.log('🔍 App installed check:');
+            console.log('  - Platform: Android =', isAndroid, ', iOS =', isIOS);
             console.log('  - Standalone:', isStandalone);
             console.log('  - iOS Standalone:', isIOSStandalone);
             console.log('  - From Home Screen:', isFromHomeScreen);
             console.log('  - PWA Launch:', isPWALaunch);
+            console.log('  - Android PWA:', isAndroidPWA);
+            console.log('  - iOS PWA:', isIOSPWA);
             console.log('  - Final Result:', isInstalled);
             
             return isInstalled;
@@ -966,25 +977,49 @@
             console.log('🔍 Display mode:', window.matchMedia('(display-mode: standalone)').matches);
             console.log('🔍 Navigator standalone:', window.navigator.standalone);
             
-            // Always show prompt on mobile if not installed, regardless of previous dismissal
-            if (window.innerWidth <= 768 && !isAppInstalled()) {
-                console.log('✅ Will show install prompt after delay');
+            const isAndroid = /Android/i.test(navigator.userAgent);
+            const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+            const isMobile = window.innerWidth <= 768;
+            
+            // Show prompt on mobile devices if not installed
+            if (isMobile && !isAppInstalled()) {
+                console.log('✅ Will show install prompt on mobile after delay');
                 setTimeout(() => {
                     showInstallPrompt();
                 }, 2000);
-            } else if (window.innerWidth > 768 && !isAppInstalled()) {
-                // Show on desktop too for testing
+            } else if (!isMobile && !isAppInstalled()) {
+                // Show on desktop too (for testing)
                 console.log('✅ Will show install prompt on desktop after delay');
                 setTimeout(() => {
                     showInstallPrompt();
                 }, 3000);
             } else {
-                console.log('❌ Not showing prompt - already installed');
+                console.log('❌ Not showing prompt - already installed or not mobile');
+            }
+        }
+
+        // Customize install prompt message based on platform
+        function customizeInstallPrompt() {
+            const isAndroid = /Android/i.test(navigator.userAgent);
+            const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+            const messageElement = document.getElementById('installPromptMessage');
+            
+            if (messageElement) {
+                if (isAndroid) {
+                    messageElement.innerHTML = 'Install Xudoku for a better gaming experience with full screen mode and offline play.';
+                } else if (isIOS) {
+                    messageElement.innerHTML = 'Add Xudoku to your home screen for full screen mode and offline play. Tap the Share button in Safari, then "Add to Home Screen".';
+                } else {
+                    messageElement.innerHTML = 'Add Xudoku to your home screen for a better gaming experience with full screen mode and offline play.';
+                }
             }
         }
 
         // Initialize install prompt check
         setTimeout(checkAndShowInstallPrompt, 1000);
+        
+        // Customize message on load
+        customizeInstallPrompt();
         
         // Check if app is already installed on page load
         document.addEventListener('DOMContentLoaded', () => {
