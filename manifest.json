@@ -4,7 +4,7 @@
   "description": "Premium Sudoku game with PWA support, multiple themes, and advanced features",
   "version": "1.0.0",
   "start_url": "/Xudoku/",
-  "display": "standalone",
+  "display": "fullscreen",
   "orientation": "portrait-primary",
   "theme_color": "#000000",
   "background_color": "#000000",

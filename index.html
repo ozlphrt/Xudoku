@@ -2,15 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Xudoku</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" href="favicon.svg">
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#000000">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-navbutton-color" content="#000000">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700;800;900&family=Nunito:wght@300;400;500;600;700;800;900&family=Fredoka:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <style>
@@ -26,13 +28,16 @@
 
         html {
             height: 100vh;
+            height: 100dvh; /* Dynamic viewport height for mobile browsers */
             width: 100vw;
+            overflow: hidden;
         }
 
         body {
             font-family: 'Segoe UI', system-ui, sans-serif;
             background: #000000;
             height: 100vh;
+            height: 100dvh; /* Dynamic viewport height for mobile browsers */
             width: 100vw;
             color: #ffffff;
             overflow: hidden;
@@ -40,6 +45,13 @@
             -webkit-touch-callout: none;
             -webkit-user-select: none;
             user-select: none;
+            margin: 0;
+            padding: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
         }
 
         /* ========================================
@@ -51,9 +63,11 @@
             justify-content: space-between;
             align-items: center;
             padding: 12px 16px;
+            padding-top: max(12px, env(safe-area-inset-top));
             background: #000000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             height: 60px;
+            height: calc(60px + env(safe-area-inset-top));
             position: fixed;
             top: 0;
             left: 0;
@@ -124,7 +138,12 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
+            height: 100dvh; /* Dynamic viewport height for mobile browsers */
             padding: 80px 16px 16px 16px;
+            padding-top: calc(80px + env(safe-area-inset-top));
+            padding-bottom: calc(16px + env(safe-area-inset-bottom));
+            padding-left: calc(16px + env(safe-area-inset-left));
+            padding-right: calc(16px + env(safe-area-inset-right));
         }
 
         /* ========================================
@@ -533,6 +552,43 @@
             }
             50% {
                 opacity: 1;
+            }
+        }
+
+        /* ========================================
+           PWA FULLSCREEN OPTIMIZATIONS
+        ======================================== */
+        
+        /* Hide browser UI elements */
+        body::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* Prevent overscroll bounce on iOS */
+        body {
+            overscroll-behavior: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Ensure full viewport usage */
+        @supports (height: 100dvh) {
+            .main-container {
+                height: 100dvh;
+            }
+        }
+        
+        /* iOS specific fixes */
+        @supports (-webkit-touch-callout: none) {
+            body {
+                -webkit-text-size-adjust: 100%;
+                -webkit-tap-highlight-color: transparent;
+            }
+        }
+        
+        /* Android specific fixes */
+        @media screen and (-webkit-min-device-pixel-ratio: 0) {
+            body {
+                -webkit-appearance: none;
             }
         }
     </style>
