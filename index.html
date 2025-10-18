@@ -706,12 +706,12 @@
             color: rgba(255, 255, 255, 0.8);
         }
 
-        /* Hide install prompt on desktop */
-        @media (min-width: 769px) {
+        /* Show install prompt on all devices for testing */
+        /* @media (min-width: 769px) {
             .install-prompt {
                 display: none;
             }
-        }
+        } */
     </style>
 </head>
 
@@ -961,6 +961,18 @@
 
         // Initialize install prompt check
         setTimeout(checkAndShowInstallPrompt, 1000);
+        
+        // TEST: Force show install prompt after 2 seconds regardless of conditions
+        setTimeout(() => {
+            console.log('🧪 FORCE TEST: Showing install prompt');
+            const prompt = document.getElementById('installPrompt');
+            if (prompt) {
+                prompt.classList.add('show');
+                console.log('✅ FORCE TEST: Install prompt should be visible now');
+            } else {
+                console.log('❌ FORCE TEST: Install prompt element not found');
+            }
+        }, 2000);
         
         // Fallback: Show install prompt if beforeinstallprompt doesn't fire
         setTimeout(() => {
