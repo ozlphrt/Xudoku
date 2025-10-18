@@ -35,7 +35,7 @@
 
         body {
             font-family: 'Segoe UI', system-ui, sans-serif;
-            background: #000000;
+            background: #1a1a1a;
             height: 100vh;
             height: 100dvh; /* Dynamic viewport height for mobile browsers */
             width: 100vw;
@@ -64,7 +64,7 @@
             align-items: center;
             padding: 8px 16px;
             padding-top: max(8px, env(safe-area-inset-top));
-            background: #000000;
+            background: #1a1a1a;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             height: 48px;
             height: calc(48px + env(safe-area-inset-top));
@@ -139,9 +139,9 @@
             justify-content: flex-start;
             height: 100vh;
             height: 100dvh; /* Dynamic viewport height for mobile browsers */
-            padding: 48px 16px 4px 16px;
+            padding: 48px 16px 0px 16px;
             padding-top: calc(48px + env(safe-area-inset-top));
-            padding-bottom: calc(4px + env(safe-area-inset-bottom));
+            padding-bottom: calc(0px + env(safe-area-inset-bottom));
             padding-left: calc(16px + env(safe-area-inset-left));
             padding-right: calc(16px + env(safe-area-inset-right));
         }
@@ -156,7 +156,7 @@
             justify-content: center;
             flex: 0 0 auto;
             width: 100%;
-            margin: 4px 0;
+            margin: 0;
             max-width: min(90vw, 90vh);
         }
 
@@ -182,11 +182,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(1.5rem, 4vw, 3rem);
-            font-weight: 700;
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 600;
+            color: #cccccc;
             font-family: 'Fredoka', 'Nunito', 'Quicksand', 'Verdana', 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
             cursor: pointer;
-            color: #ffffff;
             position: relative;
             min-height: 0;
             min-width: 0;
@@ -342,19 +342,19 @@
             display: flex;
             gap: 8px;
             justify-content: center;
-            margin-top: 4px;
+            margin-top: 0px;
             flex-wrap: wrap;
         }
 
         .num-btn {
-            width: 44px;
-            height: 44px;
+            width: 50px;
+            height: 50px;
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 12px;
-            color: #ffffff;
-            font-size: 18px;
-            font-weight: 700;
+            color: #cccccc;
+            font-size: 22px;
+            font-weight: 600;
             font-family: 'Fredoka', 'Nunito', 'Quicksand', 'Verdana', 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
             cursor: pointer;
             transition: all 0.15s ease;
@@ -399,7 +399,7 @@
             }
 
             .main-container {
-                padding: 44px 12px 2px 12px;
+                padding: 44px 12px 0px 12px;
             }
 
             .sudoku-grid {
@@ -408,7 +408,7 @@
             }
 
             .cell {
-                font-size: clamp(1.2rem, 5vw, 2.5rem);
+                font-size: clamp(1.8rem, 6vw, 3.5rem);
             }
 
             .cell.notes {
@@ -416,14 +416,14 @@
             }
 
             .num-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 16px;
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
             }
 
             .number-pad {
                 gap: 6px;
-                margin-top: 2px;
+                margin-top: 0px;
             }
         }
 
@@ -449,22 +449,22 @@
             }
 
             .main-container {
-                padding: 40px 10px 2px 10px;
+                padding: 40px 10px 0px 10px;
             }
 
             .cell {
-                font-size: clamp(1rem, 6vw, 2rem);
+                font-size: clamp(1.5rem, 7vw, 3rem);
             }
 
             .num-btn {
-                width: 36px;
-                height: 36px;
-                font-size: 14px;
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
             }
 
             .number-pad {
                 gap: 4px;
-                margin-top: 1px;
+                margin-top: 0px;
             }
         }
 
