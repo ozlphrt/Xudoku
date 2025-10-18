@@ -110,7 +110,7 @@
   ],
   "protocol_handlers": [
     {
-      "protocol": "web+xudoku",
+      "protocol": "web+zudoku",
       "url": "/Zudoku/?puzzle=%s"
     }
   ]
