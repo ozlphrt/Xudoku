@@ -4860,9 +4860,12 @@ class SudokuGame {
         const undoBtn = document.getElementById('undoBtn');
         const redoBtn = document.getElementById('redoBtn');
         
-        undoBtn.disabled = this.historyIndex < 0;
-        redoBtn.disabled = this.historyIndex >= this.moveHistory.length - 1;
-        
+        if (undoBtn) {
+            undoBtn.disabled = this.historyIndex < 0;
+        }
+        if (redoBtn) {
+            redoBtn.disabled = this.historyIndex >= this.moveHistory.length - 1;
+        }
     }
 
     
