@@ -136,12 +136,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             height: 100vh;
             height: 100dvh; /* Dynamic viewport height for mobile browsers */
-            padding: 48px 16px 8px 16px;
+            padding: 48px 16px 4px 16px;
             padding-top: calc(48px + env(safe-area-inset-top));
-            padding-bottom: calc(8px + env(safe-area-inset-bottom));
+            padding-bottom: calc(4px + env(safe-area-inset-bottom));
             padding-left: calc(16px + env(safe-area-inset-left));
             padding-right: calc(16px + env(safe-area-inset-right));
         }
@@ -154,8 +154,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            flex: 1;
+            flex: 0 0 auto;
             width: 100%;
+            margin: 4px 0;
             max-width: min(90vw, 90vh);
         }
 
@@ -341,7 +342,7 @@
             display: flex;
             gap: 8px;
             justify-content: center;
-            margin-top: 8px;
+            margin-top: 4px;
             flex-wrap: wrap;
         }
 
@@ -398,7 +399,7 @@
             }
 
             .main-container {
-                padding: 44px 12px 6px 12px;
+                padding: 44px 12px 2px 12px;
             }
 
             .sudoku-grid {
@@ -422,7 +423,7 @@
 
             .number-pad {
                 gap: 6px;
-                margin-top: 6px;
+                margin-top: 2px;
             }
         }
 
@@ -448,7 +449,7 @@
             }
 
             .main-container {
-                padding: 40px 10px 5px 10px;
+                padding: 40px 10px 2px 10px;
             }
 
             .cell {
@@ -463,7 +464,7 @@
 
             .number-pad {
                 gap: 4px;
-                margin-top: 4px;
+                margin-top: 1px;
             }
         }
 
