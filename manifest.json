@@ -3,12 +3,12 @@
   "short_name": "Xudoku",
   "description": "Premium Sudoku game with PWA support, multiple themes, and advanced features",
   "version": "1.0.0",
-  "start_url": "/",
+  "start_url": "/Xudoku/",
   "display": "standalone",
   "orientation": "portrait-primary",
   "theme_color": "#000000",
   "background_color": "#000000",
-  "scope": "/",
+  "scope": "/Xudoku/",
   "lang": "en",
   "dir": "ltr",
   "categories": ["games", "puzzle", "entertainment"],
@@ -25,7 +25,7 @@
       "name": "New Game",
       "short_name": "New Game",
       "description": "Start a new Sudoku game",
-      "url": "/?action=new",
+      "url": "/Xudoku/?action=new",
       "icons": [
         {
           "src": "favicon.svg",
@@ -38,7 +38,7 @@
       "name": "Easy Mode",
       "short_name": "Easy",
       "description": "Start an easy Sudoku puzzle",
-      "url": "/?difficulty=easy",
+      "url": "/Xudoku/?difficulty=easy",
       "icons": [
         {
           "src": "favicon.svg",
@@ -51,7 +51,7 @@
       "name": "Medium Mode",
       "short_name": "Medium",
       "description": "Start a medium Sudoku puzzle",
-      "url": "/?difficulty=medium",
+      "url": "/Xudoku/?difficulty=medium",
       "icons": [
         {
           "src": "favicon.svg",
@@ -64,7 +64,7 @@
       "name": "Hard Mode",
       "short_name": "Hard",
       "description": "Start a hard Sudoku puzzle",
-      "url": "/?difficulty=hard",
+      "url": "/Xudoku/?difficulty=hard",
       "icons": [
         {
           "src": "favicon.svg",
@@ -102,7 +102,7 @@
   "capture_links": "existing-client-navigate",
   "file_handlers": [
     {
-      "action": "/",
+      "action": "/Xudoku/",
       "accept": {
         "application/json": [".sudoku"]
       }
@@ -111,7 +111,7 @@
   "protocol_handlers": [
     {
       "protocol": "web+xudoku",
-      "url": "/?puzzle=%s"
+      "url": "/Xudoku/?puzzle=%s"
     }
   ]
 }
