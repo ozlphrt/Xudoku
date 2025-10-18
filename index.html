@@ -591,6 +591,127 @@
                 -webkit-appearance: none;
             }
         }
+
+        /* ========================================
+           INSTALL PROMPT STYLES
+        ======================================== */
+        
+        .install-prompt {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 20px;
+            z-index: 10000;
+            backdrop-filter: blur(10px);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .install-prompt.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .install-prompt-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .install-prompt-icon {
+            width: 32px;
+            height: 32px;
+            background: #ffffff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .install-prompt-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            margin: 0;
+        }
+
+        .install-prompt-message {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0 0 16px 0;
+            line-height: 1.4;
+        }
+
+        .install-prompt-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .install-prompt-btn {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .install-prompt-btn.primary {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .install-prompt-btn.primary:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .install-prompt-btn.secondary {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .install-prompt-btn.secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .install-prompt-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 24px;
+            height: 24px;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .install-prompt-close:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Hide install prompt on desktop */
+        @media (min-width: 769px) {
+            .install-prompt {
+                display: none;
+            }
+        }
     </style>
 </head>
 
@@ -624,6 +745,22 @@
             <button class="num-btn" onclick="selectNumber(7)">7</button>
             <button class="num-btn" onclick="selectNumber(8)">8</button>
             <button class="num-btn" onclick="selectNumber(9)">9</button>
+        </div>
+    </div>
+
+    <!-- Install Prompt -->
+    <div class="install-prompt" id="installPrompt">
+        <button class="install-prompt-close" onclick="hideInstallPrompt()">×</button>
+        <div class="install-prompt-header">
+            <div class="install-prompt-icon">📱</div>
+            <h3 class="install-prompt-title">Install Xudoku</h3>
+        </div>
+        <p class="install-prompt-message">
+            Add Xudoku to your home screen for a better gaming experience with full screen mode and offline play.
+        </p>
+        <div class="install-prompt-actions">
+            <button class="install-prompt-btn primary" onclick="installApp()">Install App</button>
+            <button class="install-prompt-btn secondary" onclick="hideInstallPrompt()">Not Now</button>
         </div>
     </div>
 
@@ -706,19 +843,84 @@
 
         // Handle PWA install prompt
         let deferredPrompt;
+        let installPromptShown = false;
+        
         window.addEventListener('beforeinstallprompt', (e) => {
             console.log('📱 PWA install prompt available');
             e.preventDefault();
             deferredPrompt = e;
             
-            // Show install button or notification
-            // You can customize this to show an install button in your UI
+            // Show custom install prompt after a delay
+            setTimeout(() => {
+                showInstallPrompt();
+            }, 3000);
         });
 
         window.addEventListener('appinstalled', () => {
             console.log('🎉 PWA was installed successfully');
             deferredPrompt = null;
+            hideInstallPrompt();
         });
+
+        // Check if app is already installed
+        function isAppInstalled() {
+            return window.matchMedia('(display-mode: standalone)').matches || 
+                   window.navigator.standalone === true;
+        }
+
+        // Show install prompt
+        function showInstallPrompt() {
+            // Don't show if already installed or already shown
+            if (isAppInstalled() || installPromptShown || !deferredPrompt) {
+                return;
+            }
+            
+            const prompt = document.getElementById('installPrompt');
+            if (prompt) {
+                prompt.classList.add('show');
+                installPromptShown = true;
+            }
+        }
+
+        // Hide install prompt
+        function hideInstallPrompt() {
+            const prompt = document.getElementById('installPrompt');
+            if (prompt) {
+                prompt.classList.remove('show');
+                installPromptShown = true;
+            }
+        }
+
+        // Install app
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('✅ User accepted the install prompt');
+                    } else {
+                        console.log('❌ User dismissed the install prompt');
+                    }
+                    deferredPrompt = null;
+                    hideInstallPrompt();
+                });
+            } else {
+                // Fallback for browsers that don't support the install prompt
+                alert('To install this app, please use your browser menu and select "Add to Home Screen"');
+                hideInstallPrompt();
+            }
+        }
+
+        // Show install prompt on first visit (if not already installed)
+        if (!isAppInstalled() && window.innerWidth <= 768) {
+            // Check if user has seen the prompt before
+            const hasSeenPrompt = localStorage.getItem('xudoku-install-prompt-seen');
+            if (!hasSeenPrompt) {
+                setTimeout(() => {
+                    showInstallPrompt();
+                }, 5000);
+            }
+        }
     </script>
 </body>
 </html>
