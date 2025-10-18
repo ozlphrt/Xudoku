@@ -139,8 +139,7 @@
             justify-content: flex-start;
             height: 100vh;
             height: 100dvh; /* Dynamic viewport height for mobile browsers */
-            padding: 48px 16px 0px 16px;
-            padding-top: calc(80px + env(safe-area-inset-top));
+            padding: calc(80px + env(safe-area-inset-top)) 16px 0px 16px;
             padding-bottom: calc(0px + env(safe-area-inset-bottom));
             padding-left: calc(16px + env(safe-area-inset-left));
             padding-right: calc(16px + env(safe-area-inset-right));
@@ -253,16 +252,16 @@
         .cell.given {
             background: transparent;
             font-weight: 600;
-            color: #ffffff;
+            color: #cccccc;
         }
 
         .cell.number-complete {
             opacity: 0.4;
-            color: rgba(255, 255, 255, 0.4) !important;
+            color: rgba(204, 204, 204, 0.4) !important;
         }
 
         .cell.given.number-complete {
-            color: rgba(255, 255, 255, 0.4) !important;
+            color: rgba(204, 204, 204, 0.4) !important;
         }
 
         /* Thick borders for 3x3 block separations */
@@ -399,7 +398,7 @@
             }
 
             .main-container {
-                padding: 76px 12px 0px 12px;
+                padding: calc(76px + env(safe-area-inset-top)) 12px 0px 12px;
             }
 
             .sudoku-grid {
@@ -449,7 +448,7 @@
             }
 
             .main-container {
-                padding: 72px 10px 0px 10px;
+                padding: calc(72px + env(safe-area-inset-top)) 10px 0px 10px;
             }
 
             .cell {
