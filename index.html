@@ -597,24 +597,20 @@
         ======================================== */
         
         .install-prompt {
-            position: fixed !important;
-            bottom: 20px !important;
-            left: 20px !important;
-            right: 20px !important;
-            background: rgba(255, 0, 0, 0.9) !important; /* RED for visibility */
-            border: 3px solid #ffffff !important;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 16px;
             padding: 20px;
-            z-index: 99999 !important;
+            z-index: 10000;
             backdrop-filter: blur(10px);
-            /* FORCE VISIBLE */
-            transform: translateY(0) !important;
-            opacity: 1 !important;
-            display: block !important;
-            visibility: visible !important;
+            transform: translateY(100px);
+            opacity: 0;
             transition: all 0.3s ease;
-            /* Add box shadow for extra visibility */
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            display: none; /* Hidden by default */
         }
 
         .install-prompt.show {
@@ -871,10 +867,30 @@
 
         // Check if app is already installed
         function isAppInstalled() {
-            const isStandalone = window.matchMedia('(display-mode: standalone)').matches || 
-                                window.navigator.standalone === true;
-            console.log('🔍 App installed check:', isStandalone);
-            return isStandalone;
+            // Check for standalone display mode (PWA installed)
+            const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+            
+            // Check for iOS Safari standalone mode
+            const isIOSStandalone = window.navigator.standalone === true;
+            
+            // Check if launched from home screen (additional indicators)
+            const isFromHomeScreen = window.matchMedia('(display-mode: minimal-ui)').matches ||
+                                   window.matchMedia('(display-mode: fullscreen)').matches;
+            
+            // Check URL parameters that might indicate PWA launch
+            const urlParams = new URLSearchParams(window.location.search);
+            const isPWALaunch = urlParams.has('source') && urlParams.get('source') === 'pwa';
+            
+            const isInstalled = isStandalone || isIOSStandalone || isFromHomeScreen || isPWALaunch;
+            
+            console.log('🔍 App installed check:');
+            console.log('  - Standalone:', isStandalone);
+            console.log('  - iOS Standalone:', isIOSStandalone);
+            console.log('  - From Home Screen:', isFromHomeScreen);
+            console.log('  - PWA Launch:', isPWALaunch);
+            console.log('  - Final Result:', isInstalled);
+            
+            return isInstalled;
         }
 
         // Show install prompt
@@ -887,18 +903,20 @@
             // Don't show if already installed
             if (isAppInstalled()) {
                 console.log('❌ Not showing prompt - app already installed');
+                hideInstallPrompt();
                 return;
             }
             
-            // Show prompt even if already shown (for testing)
-            // if (installPromptShown) {
-            //     console.log('❌ Not showing prompt - already shown');
-            //     return;
-            // }
+            // Don't show if already shown
+            if (installPromptShown) {
+                console.log('❌ Not showing prompt - already shown');
+                return;
+            }
             
             const prompt = document.getElementById('installPrompt');
             if (prompt) {
                 console.log('✅ Showing install prompt');
+                prompt.style.display = 'block';
                 prompt.classList.add('show');
                 installPromptShown = true;
             } else {
@@ -910,6 +928,7 @@
         function hideInstallPrompt() {
             const prompt = document.getElementById('installPrompt');
             if (prompt) {
+                prompt.style.display = 'none';
                 prompt.classList.remove('show');
                 installPromptShown = true;
                 localStorage.setItem('xudoku-install-prompt-seen', 'true');
@@ -967,44 +986,14 @@
         // Initialize install prompt check
         setTimeout(checkAndShowInstallPrompt, 1000);
         
-        // TEST: Force show install prompt after 2 seconds regardless of conditions
-        setTimeout(() => {
-            console.log('🧪 FORCE TEST: Showing install prompt');
-            const prompt = document.getElementById('installPrompt');
-            if (prompt) {
-                prompt.classList.add('show');
-                prompt.style.display = 'block';
-                prompt.style.visibility = 'visible';
-                prompt.style.opacity = '1';
-                prompt.style.transform = 'translateY(0)';
-                console.log('✅ FORCE TEST: Install prompt should be visible now');
-                console.log('✅ FORCE TEST: Prompt element:', prompt);
-                console.log('✅ FORCE TEST: Prompt styles:', prompt.style.cssText);
-            } else {
-                console.log('❌ FORCE TEST: Install prompt element not found');
+        // Check if app is already installed on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🔍 DOM loaded - checking if app is already installed...');
+            if (isAppInstalled()) {
+                console.log('✅ App is already installed - hiding install prompt');
+                hideInstallPrompt();
             }
-        }, 2000);
-        
-        // TEST: Create a simple visible test element
-        setTimeout(() => {
-            const testDiv = document.createElement('div');
-            testDiv.style.cssText = `
-                position: fixed;
-                top: 50px;
-                left: 20px;
-                right: 20px;
-                background: #ff0000;
-                color: white;
-                padding: 20px;
-                z-index: 99999;
-                font-size: 18px;
-                text-align: center;
-                border: 3px solid white;
-            `;
-            testDiv.innerHTML = '🧪 TEST ELEMENT - If you see this, DOM is working!';
-            document.body.appendChild(testDiv);
-            console.log('🧪 TEST ELEMENT CREATED');
-        }, 3000);
+        });
         
         // Fallback: Show install prompt if beforeinstallprompt doesn't fire
         setTimeout(() => {
