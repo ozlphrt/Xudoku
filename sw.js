@@ -1,5 +1,5 @@
 /**
- * Service Worker for Xudoku PWA
+ * Service Worker for Zudoku PWA
  * Provides offline functionality and caching
  */
 

@@ -1,4 +1,4 @@
-# Xudoku - Premium Sudoku PWA
+# Zudoku - Premium Sudoku PWA
 
 A modern, feature-rich Sudoku Progressive Web App (PWA) with advanced gameplay mechanics, multiple themes, and offline support.
 
@@ -171,4 +171,4 @@ MIT License - feel free to use and modify as needed.
 
 ---
 
-**Enjoy playing Xudoku!** 🎮✨
+**Enjoy playing Zudoku!** 🎮✨

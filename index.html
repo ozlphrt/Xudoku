@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Xudoku</title>
+    <title>Zudoku</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" href="favicon.svg">
     <link rel="manifest" href="manifest.json">
@@ -759,10 +759,10 @@
         <button class="install-prompt-close" onclick="hideInstallPrompt()">×</button>
         <div class="install-prompt-header">
             <div class="install-prompt-icon">📱</div>
-            <h3 class="install-prompt-title">Install Xudoku</h3>
+            <h3 class="install-prompt-title">Install Zudoku</h3>
         </div>
         <p class="install-prompt-message" id="installPromptMessage">
-            Add Xudoku to your home screen for a better gaming experience with full screen mode and offline play.
+            Add Zudoku to your home screen for a better gaming experience with full screen mode and offline play.
         </p>
         <div class="install-prompt-actions">
             <button class="install-prompt-btn primary" onclick="installApp()">Install App</button>
@@ -780,7 +780,7 @@
             if (isInitialized) return;
             isInitialized = true;
 
-            console.log('🎮 Initializing Xudoku Game...');
+            console.log('🎮 Initializing Zudoku Game...');
             
             // Wait a bit to ensure all scripts are loaded
             setTimeout(() => {
@@ -1011,11 +1011,11 @@
             
             if (messageElement) {
                 if (isAndroid) {
-                    messageElement.innerHTML = 'Install Xudoku for a better gaming experience with full screen mode and offline play.';
+                    messageElement.innerHTML = 'Install Zudoku for a better gaming experience with full screen mode and offline play.';
                 } else if (isIOS) {
-                    messageElement.innerHTML = 'Add Xudoku to your home screen for full screen mode and offline play. Tap the Share button in Safari, then "Add to Home Screen".';
+                    messageElement.innerHTML = 'Add Zudoku to your home screen for full screen mode and offline play. Tap the Share button in Safari, then "Add to Home Screen".';
                 } else {
-                    messageElement.innerHTML = 'Add Xudoku to your home screen for a better gaming experience with full screen mode and offline play.';
+                    messageElement.innerHTML = 'Add Zudoku to your home screen for a better gaming experience with full screen mode and offline play.';
                 }
             }
         }
