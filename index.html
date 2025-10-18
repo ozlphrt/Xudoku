@@ -845,6 +845,8 @@
         let deferredPrompt;
         let installPromptShown = false;
         
+        console.log('🔍 Initializing install prompt...');
+        
         window.addEventListener('beforeinstallprompt', (e) => {
             console.log('📱 PWA install prompt available');
             e.preventDefault();
@@ -853,7 +855,7 @@
             // Show custom install prompt after a delay
             setTimeout(() => {
                 showInstallPrompt();
-            }, 3000);
+            }, 2000);
         });
 
         window.addEventListener('appinstalled', () => {
@@ -864,21 +866,38 @@
 
         // Check if app is already installed
         function isAppInstalled() {
-            return window.matchMedia('(display-mode: standalone)').matches || 
-                   window.navigator.standalone === true;
+            const isStandalone = window.matchMedia('(display-mode: standalone)').matches || 
+                                window.navigator.standalone === true;
+            console.log('🔍 App installed check:', isStandalone);
+            return isStandalone;
         }
 
         // Show install prompt
         function showInstallPrompt() {
-            // Don't show if already installed or already shown
-            if (isAppInstalled() || installPromptShown || !deferredPrompt) {
+            console.log('🔍 Attempting to show install prompt...');
+            console.log('🔍 Is app installed:', isAppInstalled());
+            console.log('🔍 Install prompt shown:', installPromptShown);
+            console.log('🔍 Deferred prompt available:', !!deferredPrompt);
+            
+            // Don't show if already installed
+            if (isAppInstalled()) {
+                console.log('❌ Not showing prompt - app already installed');
+                return;
+            }
+            
+            // Don't show if already shown
+            if (installPromptShown) {
+                console.log('❌ Not showing prompt - already shown');
                 return;
             }
             
             const prompt = document.getElementById('installPrompt');
             if (prompt) {
+                console.log('✅ Showing install prompt');
                 prompt.classList.add('show');
                 installPromptShown = true;
+            } else {
+                console.log('❌ Install prompt element not found');
             }
         }
 
@@ -888,6 +907,8 @@
             if (prompt) {
                 prompt.classList.remove('show');
                 installPromptShown = true;
+                localStorage.setItem('xudoku-install-prompt-seen', 'true');
+                console.log('✅ Install prompt hidden');
             }
         }
 
@@ -912,15 +933,47 @@
         }
 
         // Show install prompt on first visit (if not already installed)
-        if (!isAppInstalled() && window.innerWidth <= 768) {
-            // Check if user has seen the prompt before
-            const hasSeenPrompt = localStorage.getItem('xudoku-install-prompt-seen');
-            if (!hasSeenPrompt) {
-                setTimeout(() => {
-                    showInstallPrompt();
-                }, 5000);
+        function checkAndShowInstallPrompt() {
+            console.log('🔍 Checking if should show install prompt...');
+            console.log('🔍 Window width:', window.innerWidth);
+            console.log('🔍 Is mobile:', window.innerWidth <= 768);
+            console.log('🔍 Is app installed:', isAppInstalled());
+            
+            if (window.innerWidth <= 768 && !isAppInstalled()) {
+                // Check if user has seen the prompt before
+                const hasSeenPrompt = localStorage.getItem('xudoku-install-prompt-seen');
+                console.log('🔍 Has seen prompt before:', hasSeenPrompt);
+                
+                if (!hasSeenPrompt) {
+                    console.log('✅ Will show install prompt after delay');
+                    setTimeout(() => {
+                        showInstallPrompt();
+                    }, 3000);
+                } else {
+                    console.log('❌ Not showing prompt - user has seen it before');
+                }
+            } else {
+                console.log('❌ Not showing prompt - not mobile or already installed');
             }
         }
+
+        // Initialize install prompt check
+        setTimeout(checkAndShowInstallPrompt, 1000);
+        
+        // Add manual trigger for testing (remove in production)
+        window.testInstallPrompt = function() {
+            console.log('🧪 Manual test trigger');
+            showInstallPrompt();
+        };
+        
+        // Add keyboard shortcut for testing (Ctrl+Shift+I)
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+                e.preventDefault();
+                console.log('🧪 Keyboard test trigger');
+                showInstallPrompt();
+            }
+        });
     </script>
 </body>
 </html>
