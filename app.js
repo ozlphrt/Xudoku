@@ -5141,6 +5141,26 @@ function undoMove() {
     }
 }
 
+function eraseCell() {
+    if (game && game.selectedCell) {
+        game.selectedCell.textContent = '';
+        game.selectedCell.classList.remove('number-selected');
+        game.selectedCell.dataset.number = '';
+        game.clearCell(game.selectedCell);
+    }
+}
+
+function toggleNotes() {
+    if (game) {
+        // Toggle notes mode
+        game.notesMode = !game.notesMode;
+        const notesBtn = document.querySelector('.action-btn[onclick="toggleNotes()"]');
+        if (notesBtn) {
+            notesBtn.classList.toggle('active', game.notesMode);
+        }
+    }
+}
+
 function redoMove() {
     if (game) {
         game.redoMove();

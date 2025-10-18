@@ -63,16 +63,27 @@
             justify-content: space-between;
             align-items: center;
             padding: 8px 16px;
-            padding-top: max(32px, env(safe-area-inset-top) + 24px);
+            padding-top: max(48px, env(safe-area-inset-top) + 40px);
             background: #1a1a1a;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             height: 48px;
-            height: calc(48px + env(safe-area-inset-top) + 24px);
+            height: calc(48px + env(safe-area-inset-top) + 40px);
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1000;
+        }
+
+        .timer-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .timer-icon {
+            font-size: 18px;
+            color: #cccccc;
         }
 
         .hint-btn {
@@ -139,7 +150,7 @@
             justify-content: flex-start;
             height: 100vh;
             height: 100dvh; /* Dynamic viewport height for mobile browsers */
-            padding: calc(100px + env(safe-area-inset-top)) 16px 0px 16px;
+            padding: calc(116px + env(safe-area-inset-top)) 16px 0px 16px;
             padding-bottom: calc(0px + env(safe-area-inset-bottom));
             padding-left: calc(16px + env(safe-area-inset-left));
             padding-right: calc(16px + env(safe-area-inset-right));
@@ -155,7 +166,7 @@
             justify-content: center;
             flex: 0 0 auto;
             width: 100%;
-            margin: 16px 0 0 0;
+            margin: 24px 0 0 0;
             max-width: min(90vw, 90vh);
         }
 
@@ -343,21 +354,27 @@
         ======================================== */
         
         .number-pad {
-            display: flex;
-            gap: 8px;
+            display: flex !important;
+            gap: 1px !important;
             justify-content: center;
-            margin-top: -8px;
-            flex-wrap: wrap;
+            margin-top: -12px;
+            flex-wrap: nowrap !important;
+            width: 100%;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .num-btn {
-            width: 50px;
-            height: 50px;
+            width: 28px !important;
+            height: 28px !important;
+            min-width: 28px !important;
+            max-width: 28px !important;
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
+            border-radius: 6px;
             color: #cccccc !important;
-            font-size: 22px;
+            font-size: 14px !important;
             font-weight: 600;
             font-family: 'Fredoka', 'Nunito', 'Quicksand', 'Verdana', 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
             cursor: pointer;
@@ -365,6 +382,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 1;
+            flex-basis: 28px !important;
+            padding: 0 !important;
+            margin: 0 !important;
         }
 
         .num-btn:hover {
@@ -378,14 +399,63 @@
         }
 
         /* ========================================
+           ACTION BUTTONS
+        ======================================== */
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 16px;
+            padding-bottom: 20px;
+        }
+
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: #cccccc;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            min-width: 60px;
+        }
+
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .action-btn.active {
+            background: rgba(59, 130, 246, 0.3);
+            border-color: rgba(59, 130, 246, 0.5);
+            color: #60a5fa;
+        }
+
+        .action-icon {
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        .action-label {
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 1;
+        }
+
+        /* ========================================
            RESPONSIVE DESIGN
         ======================================== */
         
         @media (max-width: 768px) {
             .top-bar {
                 padding: 8px 12px;
-                padding-top: max(28px, env(safe-area-inset-top) + 20px);
-                height: calc(44px + env(safe-area-inset-top) + 20px);
+                padding-top: max(40px, env(safe-area-inset-top) + 32px);
+                height: calc(44px + env(safe-area-inset-top) + 32px);
             }
 
             .hint-btn {
@@ -404,7 +474,7 @@
             }
 
             .main-container {
-                padding: calc(96px + env(safe-area-inset-top)) 12px 0px 12px;
+                padding: calc(108px + env(safe-area-inset-top)) 12px 0px 12px;
             }
 
             .sudoku-grid {
@@ -421,22 +491,26 @@
             }
 
             .num-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 20px;
+                width: 26px !important;
+                height: 26px !important;
+                min-width: 26px !important;
+                max-width: 26px !important;
+                font-size: 14px !important;
+                flex-basis: 26px !important;
             }
 
             .number-pad {
-                gap: 6px;
-                margin-top: -6px;
+                gap: 0px;
+                margin-top: -10px;
+                flex-wrap: nowrap;
             }
         }
 
         @media (max-width: 480px) {
             .top-bar {
                 padding: 6px 10px;
-                padding-top: max(24px, env(safe-area-inset-top) + 18px);
-                height: calc(40px + env(safe-area-inset-top) + 18px);
+                padding-top: max(36px, env(safe-area-inset-top) + 28px);
+                height: calc(40px + env(safe-area-inset-top) + 28px);
             }
 
             .hint-btn {
@@ -455,7 +529,7 @@
             }
 
             .main-container {
-                padding: calc(92px + env(safe-area-inset-top)) 10px 0px 10px;
+                padding: calc(104px + env(safe-area-inset-top)) 10px 0px 10px;
             }
 
             .cell {
@@ -463,14 +537,37 @@
             }
 
             .num-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 18px;
+                width: 24px !important;
+                height: 24px !important;
+                min-width: 24px !important;
+                max-width: 24px !important;
+                font-size: 12px !important;
+                flex-basis: 24px !important;
             }
 
             .number-pad {
-                gap: 4px;
-                margin-top: -4px;
+                gap: 0px;
+                margin-top: -8px;
+                flex-wrap: nowrap;
+            }
+
+            .action-buttons {
+                gap: 8px;
+                margin-top: 12px;
+                padding-bottom: 16px;
+            }
+
+            .action-btn {
+                padding: 10px 12px;
+                min-width: 50px;
+            }
+
+            .action-icon {
+                font-size: 18px;
+            }
+
+            .action-label {
+                font-size: 11px;
             }
         }
 
@@ -726,11 +823,13 @@
 <body>
     <!-- Top Bar -->
     <div class="top-bar">
-        <button class="hint-btn" onclick="solveHint()" title="Get Hint">Hint</button>
-        <div class="timer-display" id="timer">00:00:00</div>
+        <div class="timer-container">
+            <span class="timer-icon">🕐</span>
+            <div class="timer-display" id="timer">01:23</div>
+        </div>
         <div class="difficulty-buttons">
-            <button class="difficulty-btn active" onclick="setDifficulty('easy')">Easy</button>
-            <button class="difficulty-btn" onclick="setDifficulty('medium')">Medium</button>
+            <button class="difficulty-btn" onclick="setDifficulty('easy')">Easy</button>
+            <button class="difficulty-btn active" onclick="setDifficulty('medium')">Medium</button>
             <button class="difficulty-btn" onclick="setDifficulty('hard')">Hard</button>
         </div>
     </div>
@@ -753,6 +852,26 @@
             <button class="num-btn" onclick="selectNumber(7)">7</button>
             <button class="num-btn" onclick="selectNumber(8)">8</button>
             <button class="num-btn" onclick="selectNumber(9)">9</button>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="action-btn" onclick="undoMove()" title="Undo">
+                <span class="action-icon">↶</span>
+                <span class="action-label">Undo</span>
+            </button>
+            <button class="action-btn" onclick="eraseCell()" title="Erase">
+                <span class="action-icon">🗑️</span>
+                <span class="action-label">Erase</span>
+            </button>
+            <button class="action-btn" onclick="solveHint()" title="Hint">
+                <span class="action-icon">💡</span>
+                <span class="action-label">Hint</span>
+            </button>
+            <button class="action-btn active" onclick="toggleNotes()" title="Notes">
+                <span class="action-icon">✏️</span>
+                <span class="action-label">Notes</span>
+            </button>
         </div>
     </div>
 
