@@ -5020,17 +5020,19 @@ function handleSwipe() {
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector('.container');
     
-    container.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-    });
-    
-    container.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    });
-    
-    // Start on center panel
-    switchPanel(1);
+    if (container) {
+        container.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
+        container.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+        
+        // Start on center panel
+        switchPanel(1);
+    }
 });
 
 function addNote(number) {
