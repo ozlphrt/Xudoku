@@ -583,18 +583,33 @@
             isInitialized = true;
 
             console.log('🎮 Initializing Xudoku Game...');
-            try {
-                window.game = new SudokuGame();
-                console.log('✅ Game created successfully:', window.game);
-                console.log('✅ Grid element exists:', document.getElementById('sudokuGrid'));
-                console.log('✅ Cells created:', document.querySelectorAll('.cell').length);
-            } catch (error) {
-                console.error('❌ Error creating game:', error);
-            }
+            
+            // Wait a bit to ensure all scripts are loaded
+            setTimeout(() => {
+                try {
+                    // Check if puzzle database is available
+                    if (typeof expandedPuzzleDatabase !== 'undefined') {
+                        console.log('✅ Expanded puzzle database loaded');
+                    } else {
+                        console.log('⚠️ Expanded puzzle database not loaded, using built-in puzzles only');
+                    }
+                    
+                    window.game = new SudokuGame();
+                    console.log('✅ Game created successfully:', window.game);
+                    console.log('✅ Grid element exists:', document.getElementById('sudokuGrid'));
+                    console.log('✅ Cells created:', document.querySelectorAll('.cell').length);
+                } catch (error) {
+                    console.error('❌ Error creating game:', error);
+                }
+            }, 100);
         }
 
-        // Initialize on load
-        window.addEventListener('load', initializeApp);
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeApp);
+        } else {
+            initializeApp();
+        }
 
         // Cleanup on page unload
         window.addEventListener('beforeunload', function() {
